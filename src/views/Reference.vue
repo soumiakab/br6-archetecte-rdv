@@ -1,5 +1,8 @@
 <template>
     <div class="container-fluid">
+        <div class="row">
+            <router-link :to="{ path: '/' }"> retour</router-link>
+        </div>
         <div class="containref">
             <div class="row">
                 <div class="col-8 infos">

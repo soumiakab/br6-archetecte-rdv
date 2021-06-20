@@ -2,7 +2,12 @@
 <template>
     <div class="container">
         <div class="row">
-            <form class="crd col-8">
+            <router-link :to="{ path: '/rdv/' + $route.params.ref }">
+                retour</router-link
+            >
+        </div>
+        <div class="row">
+            <form class="crd col-8" v-on:submit.prevent="Submt">
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Date</label>
                     <input
@@ -15,7 +20,11 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Horaire</label>
-                    <select class="form-control" id="exampleFormControlSelect1">
+                    <select
+                        class="form-control"
+                        id="exampleFormControlSelect1"
+                        v-model="rdvData.horaire"
+                    >
                         <option selected disabled>choisir un horaire</option>
                         <option
                             v-for="(el, index) in horairesPr"
@@ -34,8 +43,10 @@
                         class="form-control"
                         id="exampleFormControlTextarea1"
                         rows="3"
+                        v-model="rdvData.typeCons"
                     ></textarea>
                 </div>
+                <button type="submit">reserver</button>
             </form>
         </div>
     </div>
@@ -59,9 +70,34 @@ export default {
                 { val: "17:00-18-00", etat: false },
             ],
             horaires: [],
+            rdvData: {
+                date: "",
+                horaire: "choisir un horaire",
+                typeCons: "",
+                reference: "",
+            },
         };
     },
     methods: {
+        async Submt() {
+            // GET request using fetch with async/await
+            const response = await fetch(
+                "http://localhost/br6-rdv/Api/rdv/ajouterRdv",
+                {
+                    method: "POST", // or 'PUT'
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(this.rdvData),
+                }
+            );
+            console.log(this.rdvData);
+            // this.rdvData.date = "";
+            // this.rdvData.horaire = "";
+            // this.rdvData.typeCons = "";
+            // this.rdvData.reference = "";
+            this.$router.push("/rdv/"+this.$route.params.ref);
+        },
         async getTime(val) {
             console.log("im in");
             const response = await fetch(
@@ -74,22 +110,20 @@ export default {
     watch: {
         date: async function (val) {
             await this.getTime(val);
+            await (this.rdvData.date = val);
+            await (this.rdvData.reference = this.$route.params.ref);
+            await (console.log(this.rdvData));
             //    await (console.log(this.horaires.length));
             for (var i = 0; i < this.horairesPr.length; i++) {
+                this.horairesPr[i].etat = false;
                 for (var j = 0; j < this.horaires.length; j++) {
                     if (this.horairesPr[i].val == this.horaires[j]) {
-                        console.log( this.horairesPr[i].etat);
+                        console.log(this.horairesPr[i].etat);
                         this.horairesPr[i].etat = true;
-                        console.log(i+"///eg///"+ this.horairesPr[i].etat);
+                        console.log(i + "///eg///" + this.horairesPr[i].etat);
                         // break;
                     }
-                    else{
-                        this.horairesPr[i].etat = false;
-                        console.log(i+"//////"+ this.horairesPr[i].etat);
-                    }
-
                 }
-                // console.log( this.horairesPr[i].etat);
             }
         },
     },

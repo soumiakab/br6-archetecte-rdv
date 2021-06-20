@@ -2,6 +2,11 @@
     <!-- eslint-disable -->
     <div class="container-fluid affcont">
         <div class="row">
+            <router-link :to="{ path: '/'}">
+                retour</router-link
+            >
+        </div>
+        <div class="row">
             <div class="col-9" style="text-align:left">
             reference:{{ref}}
             </div>
@@ -112,11 +117,11 @@ export default {
         
     },
     cancel(){
-          this.editReser='';
-          this.editClient.id=''
-            this.editClient.date='';
-            this.editClient.horaire='';
-            this.editClient.typeCons='';
+        this.editReser='';
+        this.editClient.id=''
+        this.editClient.date='';
+        this.editClient.horaire='';
+        this.editClient.typeCons='';
     }
   }
  

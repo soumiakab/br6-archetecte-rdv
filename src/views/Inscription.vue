@@ -1,6 +1,9 @@
 <template>
     <div class="container-fluid containfos">
         <div class="row">
+            <router-link :to="{ path: '/' }"> retour</router-link>
+        </div>
+        <div class="row">
             <div class="col-8">
                 <form class="infos" v-on:submit.prevent="Submt">
                     <div class="row">
