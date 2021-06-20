@@ -86,6 +86,7 @@
     <h3>Ecosystem</h3>
     <ul>
       <li>
+        // eslint-disable-next-line prettier/prettier
         <a href="https://router.vuejs.org" target="_blank" rel="noopener"
           >vue-router</a
         >
