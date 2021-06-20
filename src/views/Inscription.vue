@@ -15,6 +15,7 @@
                                 id="inputEmail4"
                                 placeholder="Nom"
                                 v-model="clientData.nom"
+                                required
                             />
                         </div>
                         <div class="col-6 form-group">
@@ -25,6 +26,7 @@
                                 id="inputPassword4"
                                 placeholder="prenom"
                                 v-model="clientData.prenom"
+                                required
                             />
                         </div>
                     </div>
@@ -36,6 +38,7 @@
                                 class="form-control"
                                 id="inputCity"
                                 v-model="clientData.email"
+                                required
                             />
                         </div>
                     </div>
@@ -48,6 +51,7 @@
                                 id="inputAddress"
                                 placeholder="06-"
                                 v-model="clientData.tel"
+                                required
                             />
                         </div>
                         <div class="col-6 form-group">
@@ -58,19 +62,18 @@
                                 id="inputAddress2"
                                 placeholder="Age?"
                                 v-model="clientData.age"
+                                required
                             />
                         </div>
                     </div>
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                        style="float: right; margin: 20px"
-                    >
+                    <button type="submit" class="btn btn-primary btnvalider">
                         Valider
                     </button>
                 </form>
             </div>
         </div>
+        <img alt="Vue logo" src="../assets/logo2.png" />
+
     </div>
 </template>
 <script>
@@ -156,7 +159,7 @@ export default {
     },
 };
 </script>
-<style>
+<style scoped>
 /* .containfos{
             background-color:#2475A0;
             height:100vh;
@@ -169,7 +172,17 @@ div {
     background-color: #2475a0;
     padding: 40px;
     position: relative;
-    top: 30%;
+    top: 10%;
     left: 20%;
+}
+.btnvalider {
+    float: right;
+    margin: 20px;
+}
+img {
+    z-index: 100;
+    width: 10%;
+    position: relative;
+    left: 90%;
 }
 </style>

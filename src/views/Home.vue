@@ -13,6 +13,10 @@
         >
       </div>
     </div>
+    <div class="row">
+        <img alt="Vue logo" src="../assets/logo1.png"  />
+
+    </div>
   </div>
 </template>
 <script>
@@ -21,10 +25,14 @@ export default {
   name: "Home",
 };
 </script>
-<style>
+<style scoped>
 .cont {
-  height: 100vh;
+  /* height: 100vh; */
+  position: absolute;
+  top:0;
+  bottom: 0;
   text-align: center;
+  margin: 0;
 }
 .cont button {
   position: relative;
@@ -38,5 +46,13 @@ export default {
 }
 .old {
   background-color: #67e1e2;
+  left: 50%;
+}
+img{
+    z-index: 100;
+    width: 20%;
+    position: relative;
+    left: 40%;
+    top:10%;
 }
 </style>

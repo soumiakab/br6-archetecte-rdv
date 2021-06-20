@@ -6,17 +6,19 @@
                 retour</router-link
             >
         </div>
-        <div class="row">
-            <div class="col-9" style="text-align:left">
-            reference:{{ref}}
+        <div class="row rdvherd">
+            <div class="col-10" style="text-align:left">
+           
             </div>
-            <div class="col-3 ">
+            <div class="col-2 ">
             <router-link class="btn btn-primary" style="width:10vh" :to="{ path: '/reservation/' + ref }">+</router-link>
             </div>
         </div>
         <div class="row">
-            <div class="table-responsive tabcont">
-                <table class="table">
+            <div class="card-body">
+                Reference : {{ref}}
+        <div class="table-responsive">
+          <table class="table">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -31,18 +33,19 @@
                                 <td><input v-model="editClient.date" type="date"></td>
                                 <td><input v-model="editClient.horaire" type="text"></td>
                                 <td><input v-model="editClient.typeCons" type="text"></td>
-                                <td><button class="btn btn-danger btn-sm rounded-0" @click="update();" >Enregistrer</button> &nbsp;<button class="btn btn-info btn-sm rounded-0" @click="cancel();">Annuler</button></td>
+                                <td><button class="btn btn-success btn-sm rounded-0" @click="update();" > <i class="fa fa-check"></i></button> &nbsp;<button class="btn btn-sm rounded-0" @click="cancel();"> <i class="fa fa-ban"></i></button></td>
                             </template>
                             <template v-else>
                                 <td>{{ elemt.date }}</td> 
                                 <td>{{ elemt.horaire }}</td>  
                                 <td>{{ elemt.typeCons }}</td>
-                                <td><button class="btn btn-danger btn-sm rounded-0" @click="slectU(elemt.id); del();" >supprimer</button> &nbsp;<button class="btn btn-info btn-sm rounded-0" @click="edit(elemt.id);">modifier</button></td>
+                                <td><button class="btn btn-danger btn-sm rounded-0" @click="slectU(elemt.id); del();" ><i class="fa fa-trash"></i></button> &nbsp;<button class="btn btn-primary btn-sm rounded-0" @click="edit(elemt.id);"><i class="fa fa-pencil fa-fw" aria-hidden="true" style="color:#fff;"></i> </button></td>
                             </template>
                         </tr>
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
     </div>
 </template>
@@ -130,10 +133,17 @@ export default {
 <style>
         .affcont{
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            /* top: 10%; */
+            padding: 5%;
+            /* left: 5%; */
+            /* transform: translate(-50%, -50%); */
         }
-    
+    .rdvherd{
+        height: 20vh;
+    }
     .btn-info{color:#fff;}
+    table th{
+        color: #2475a0;
+    }
+
     </style>

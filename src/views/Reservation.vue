@@ -9,7 +9,7 @@
         <div class="row">
             <form class="crd col-8" v-on:submit.prevent="Submt">
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Date</label>
+                    <label for="exampleFormControlInput1">Date :</label>
                     <input
                         type="date"
                         class="form-control"
@@ -19,7 +19,7 @@
                     />
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Horaire</label>
+                    <label for="exampleFormControlSelect1">Horaire :</label>
                     <select
                         class="form-control"
                         id="exampleFormControlSelect1"
@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1"
-                        >Decrir le sujet de rdv</label
+                        >le sujet de rdv :</label
                     >
                     <textarea
                         class="form-control"
@@ -46,8 +46,12 @@
                         v-model="rdvData.typeCons"
                     ></textarea>
                 </div>
-                <button type="submit">reserver</button>
+                <button type="submit" class="btn btn-primary btnv">
+                    reserver
+                </button>
             </form>
+            <img alt="Vue logo" src="../assets/logo2.png" />
+
         </div>
     </div>
 </template>
@@ -129,10 +133,25 @@ export default {
     },
 };
 </script>
-<style>
+<style scoped>
 .crd {
     position: absolute;
     top: 20%;
     left: 20%;
+    color:#2475a0;
+    font-weight: bold;
+    
 }
+    .btnv{
+            float: right;
+    margin-top: 4%;
+    }
+    .form-group{
+            margin-bottom: 10px;
+    }
+    img{
+        width: 22%;
+        position: absolute;
+        bottom: 0;
+    }
 </style>
