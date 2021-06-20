@@ -70,9 +70,11 @@
                         Valider
                     </button>
                 </form>
+                <img alt="Vue logo" src="../assets/logo2.png" />
+
             </div>
         </div>
-        <img alt="Vue logo" src="../assets/logo2.png" />
+        <!-- <img alt="Vue logo" src="../assets/logo2.png" /> -->
 
     </div>
 </template>
@@ -181,8 +183,9 @@ div {
 }
 img {
     z-index: 100;
-    width: 10%;
-    position: relative;
-    left: 90%;
+    width: 22%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 </style>

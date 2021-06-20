@@ -51,7 +51,6 @@
                 </button>
             </form>
             <img alt="Vue logo" src="../assets/logo2.png" />
-
         </div>
     </div>
 </template>
