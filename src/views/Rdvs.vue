@@ -30,8 +30,22 @@
                     <tbody>
                         <tr v-for="elemt in rdvs" v-bind:key="elemt.id">
                             <template v-if="editClient.id == elemt.id">
-                                <td><input v-model="editClient.date" type="date"></td>
-                                <td><input v-model="editClient.horaire" type="text"></td>
+                                <td><input v-model="date" type="date"></td>
+                                <!-- <td><input v-model="editClient.horaire" type="text"></td> -->
+                                <td> <select
+                        class="form-control"
+                        id="exampleFormControlSelect1"
+                        v-model="editClient.horaire"
+                    >
+
+                        <option
+                            v-for="(el, index) in horairesPr"
+                            :key="index"
+                            :disabled="el.etat"
+                        >
+                            {{ el.val }}
+                        </option>
+                    </select> </td>
                                 <td><input v-model="editClient.typeCons" type="text"></td>
                                 <td><button class="btn btn-success btn-sm rounded-0" @click="update();" > <i class="fa fa-check"></i></button> &nbsp;<button class="btn btn-sm rounded-0" @click="cancel();"> <i class="fa fa-ban"></i></button></td>
                             </template>
@@ -57,6 +71,7 @@ export default {
       return{
           rdvs:[],
           ref:'',
+          date: '',
           curentElment:'',
           editReser:'',
           editClient:{
@@ -64,7 +79,19 @@ export default {
               date:'',
               horaire:'',
               typeCons:''
-          }
+          },
+            horairesPr: [
+                { val: "08:00-09-00", etat: false },
+                { val: "09:00-10-00", etat: false },
+                { val: "10:00-11-00", etat: false },
+                { val: "11:00-12-00", etat: false },
+                { val: "13:00-14-00", etat: false },
+                { val: "14:00-15-00", etat: false },
+                { val: "15:00-16-00", etat: false },
+                { val: "16:00-17-00", etat: false },
+                { val: "17:00-18-00", etat: false },
+            ],
+            horaires:[],
       }
   },
   async mounted(){
@@ -90,15 +117,18 @@ export default {
         });
        await this.getAll();
     },
-    edit(x){
+    async edit(x){
         fetch('http://localhost/br6-rdv/Api/rdv/getoneRdv/'+x)
         .then(response => response.json())
         .then(data =>{
             this.editReser=data.id;
             this.editClient.id=data.id;
             this.editClient.date=data.date;
+            this.date=data.date;
             this.editClient.horaire=data.horaire;
             this.editClient.typeCons=data.typeCons;
+            this.filtrerH(data.date);
+            // console.log(this.editClient.horaire);
         })
     },
    async update(){
@@ -125,8 +155,40 @@ export default {
         this.editClient.date='';
         this.editClient.horaire='';
         this.editClient.typeCons='';
-    }
-  }
+    },
+     async getTime(val) {
+            console.log("im in");
+            const response = await fetch(
+                "http://localhost/br6-rdv/Api/rdv/afficherHr/" + val
+            );
+            const data = await response.json();
+            this.horaires = data;
+        },
+         async filtrerH (val) {
+            console.log("eeeeeeee");
+            await this.getTime(val);
+            await (this.editClient.date = val);
+            await (this.editClient.reference = this.$route.params.ref);
+            await console.log(this.editClient);
+            //    await (console.log(this.horaires.length));
+             for (var i = 0; i < this.horairesPr.length; i++) {
+                await (this.horairesPr[i].etat = false);
+                for (var j = 0; j < this.horaires.length; j++) {
+                    if (this.horairesPr[i].val == this.horaires[j]) {
+                        // console.log(this.horairesPr[i].etat);
+                         await (this.horairesPr[i].etat = true);
+                        console.log( this.horaires[j] + "///eg///");
+                       
+                    }
+                }
+            }
+        }
+  },
+  watch: {
+        date: async function (val) {
+            this.filtrerH (val);
+        },
+    },
  
 };
 </script>

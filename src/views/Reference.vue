@@ -1,12 +1,12 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <router-link :to="{ path: '/' }"> retour</router-link>
+            <router-link :to="{ path: '/' }"> retour </router-link>
         </div>
         <div class="row containref">
             <div class="col-6 infos">
                 <div class="row" v-if="ref">
-                    <label for="inputEmail4">Votre Referenciel : </label
+                    <label for="inputEmail4">VOTRE REFERENCIEL : </label
                     ><br /><br />
                     <input
                         type="text"
@@ -24,7 +24,7 @@
                     >
                 </div>
                 <div class="row refcont" v-else>
-                    <label for="inputEmail4">Votre Referenciel :</label
+                    <label for="inputEmail4">VOTRE REFERENCIEL :</label
                     ><br /><br />
                     <input
                         type="text"
@@ -36,6 +36,9 @@
                     <button class="btn btn-primary btnref" @click="search()">
                         ok
                     </button>
+                    <div class="alert alert-danger" role="alert" v-if="erreur">
+                        {{ erreur }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,21 +56,20 @@ export default {
         };
     },
     methods: {
-        search() {
-            fetch(
+        async search() {
+           const response = await fetch(
                 "http://localhost/br6-rdv/Api/Utilisateur/getone/" + this.refl
-            )
-                .then((response) => response.json())
-                .then((data) => {
+            );
+            const data =await response.json();
+             
                     if (data.message) {
                         this.erreur = data.message;
                         console.log(this.erreur);
                     } else {
-                        // console.log("done");
 
                         this.$router.push("/rdv/" + this.refl);
                     }
-                });
+               
         },
     },
     mounted: function () {
@@ -81,6 +83,8 @@ export default {
     top: 30%;
     left: 20%;
     text-align: center;
+    color: #2475a0;
+    font-weight: bold;
 }
 .btnref {
     /* width: 50vh; */

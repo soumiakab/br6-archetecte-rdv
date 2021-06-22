@@ -7,6 +7,11 @@
             >
         </div>
         <div class="row">
+            <div class="alert alert-danger" role="alert" v-if="erreur">
+                {{ erreur }}
+            </div>
+        </div>
+        <div class="row">
             <form class="crd col-8" v-on:submit.prevent="Submt">
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Date :</label>
@@ -60,6 +65,7 @@ export default {
     name: "Reservation",
     data() {
         return {
+            erreur: "",
             date: "",
             horairesPr: [
                 { val: "08:00-09-00", etat: false },
@@ -83,6 +89,8 @@ export default {
     },
     methods: {
         async Submt() {
+            
+            if(this.rdvData.horaire!="choisir un horaire" && this.rdvData.typeCons !="" ){
             // GET request using fetch with async/await
             const response = await fetch(
                 "http://localhost/br6-rdv/Api/rdv/ajouterRdv",
@@ -99,7 +107,11 @@ export default {
             // this.rdvData.horaire = "";
             // this.rdvData.typeCons = "";
             // this.rdvData.reference = "";
-            this.$router.push("/rdv/"+this.$route.params.ref);
+                this.$router.push("/rdv/" + this.$route.params.ref);
+            }
+            else{
+                this.erreur="veuillez remplir tt les champs";
+            }
         },
         async getTime(val) {
             console.log("im in");
@@ -113,10 +125,15 @@ export default {
     watch: {
         date: async function (val) {
             await this.getTime(val);
+            this.rdvData.horaire="choisir un horaire";
             await (this.rdvData.date = val);
             await (this.rdvData.reference = this.$route.params.ref);
-            await (console.log(this.rdvData));
+            await console.log(this.rdvData);
             //    await (console.log(this.horaires.length));
+            if(this.horairesPr.length == this.horaires.length){
+                this.erreur="il ne reste plus de rdv pour cette date veuillez choisir une autre";
+            }
+            else{this.erreur="";}
             for (var i = 0; i < this.horairesPr.length; i++) {
                 this.horairesPr[i].etat = false;
                 for (var j = 0; j < this.horaires.length; j++) {
@@ -137,20 +154,19 @@ export default {
     position: absolute;
     top: 20%;
     left: 20%;
-    color:#2475a0;
+    color: #2475a0;
     font-weight: bold;
-    
 }
-    .btnv{
-            float: right;
+.btnv {
+    float: right;
     margin-top: 4%;
-    }
-    .form-group{
-            margin-bottom: 10px;
-    }
-    img{
-        width: 22%;
-        position: absolute;
-        bottom: 0;
-    }
+}
+.form-group {
+    margin-bottom: 10px;
+}
+img {
+    width: 22%;
+    position: absolute;
+    bottom: 0;
+}
 </style>

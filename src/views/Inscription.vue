@@ -7,7 +7,7 @@
             <div class="col-8">
                 <form class="infos" v-on:submit.prevent="Submt">
                     <div class="row">
-                        <div class="col-6 form-group">
+                        <div class="col-lg-6 col-md-6 col-xm-12 form-group">
                             <label for="inputEmail4">Nom:</label>
                             <input
                                 type="text"
@@ -18,7 +18,7 @@
                                 required
                             />
                         </div>
-                        <div class="col-6 form-group">
+                        <div class="col-lg-6 col-md-6 col-xm-12 form-group">
                             <label for="inputPassword4">Prenom:</label>
                             <input
                                 type="text"
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 form-group">
+                        <div class="col-lg-6 col-md-6 col-xm-12 form-group">
                             <label for="inputAddress">Tel:</label>
                             <input
                                 type="text"
@@ -54,7 +54,7 @@
                                 required
                             />
                         </div>
-                        <div class="col-6 form-group">
+                        <div class="col-lg-6 col-md-6 col-xm-12 form-group">
                             <label for="inputAddress2">Age:</label>
                             <input
                                 type="number"
@@ -118,45 +118,6 @@ export default {
             this.clientData.email = "";
             this.clientData.tel = "";
             this.$router.push("/reference/" + data.reference);
-        },
-        async Submte() {
-            fetch("http://localhost/br6-rdv/Api/utilisateur/ajouterUtil", {
-                method: "POST", // or 'PUT'
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(this.clientData),
-            })
-                .then((response) => response.json())
-                .then(function (data) {
-                    console.log(data.reference);
-
-                    this.erer = data.reference;
-                    console.log(this.erer);
-                });
-        },
-        onSubmit() {
-            fetch("http://localhost/br6-rdv/Api/utilisateur/ajouterUtil", {
-                method: "POST", // or 'PUT'
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(this.clientData),
-            })
-                // .then(console.log(JSON.stringify(this.clientData)))
-                .then((response) => response.json())
-                .then((data) => {
-                    this.ref = data.reference;
-                    console.log(this.ref + "///dataa///" + data.reference);
-                });
-            console.log(JSON.stringify(this.clientData));
-            this.clientData.nom = "";
-            this.clientData.prenom = "";
-            this.clientData.age = "";
-            this.clientData.email = "";
-            this.clientData.tel = "";
-            console.log(this.ref + "//console");
-            // this.$router.push("/reference/" + this.reference);
         },
     },
 };
