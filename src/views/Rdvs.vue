@@ -37,7 +37,7 @@
                         id="exampleFormControlSelect1"
                         v-model="editClient.horaire"
                     >
-
+                        <option disabled>choisir un horaire</option>
                         <option
                             v-for="(el, index) in horairesPr"
                             :key="index"
@@ -186,6 +186,7 @@ export default {
   },
   watch: {
         date: async function (val) {
+            this.editClient.horaire = "choisir un horaire";
             this.filtrerH (val);
         },
     },
